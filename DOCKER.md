@@ -30,63 +30,69 @@ cd e:\postgresql-dashboard
 copy .env.example .env
 ```
 
-Edit `.env` to customize database credentials if needed:
+Edit `.env` to configure your PostgreSQL connection:
 ```
-DB_USER=postgres
-DB_PASSWORD=password
-DB_NAME=postgres
 BACKEND_PORT=8001
 FRONTEND_PORT=3001
+
+# Configure your PostgreSQL instance details
+DATABASE_HOST=your-postgres-host
+DATABASE_PORT=5432
+DATABASE_USER=your-username
+DATABASE_PASSWORD=your-password
+DATABASE_NAME=your-database
 ```
 
-### 3. Start All Services
+### 3. Start Services
 
 ```bash
 docker-compose up -d
 ```
 
 This will:
-- Start PostgreSQL database
-- Build and start FastAPI backend
+- Build and start FastAPI backend (connects to your PostgreSQL)
 - Build and start React frontend with Nginx
-- Set up networking between containers
+- Create isolated Docker network for service communication
 
 ### 4. Access the Application
 
 - **Frontend**: http://localhost:3001
 - **Backend API**: http://localhost:8001
 - **API Docs**: http://localhost:8001/docs
-- **PostgreSQL**: localhost:5432
 
-### 5. Stop Services
+### 5. Configure Your PostgreSQL Connection
+
+Update your `.env` file with your PostgreSQL server details:
+```
+DATABASE_HOST=your.postgres.server
+DATABASE_PORT=5432
+DATABASE_USER=your_username
+DATABASE_PASSWORD=your_password
+DATABASE_NAME=your_database
+```
+
+Then restart the containers:
+```bash
+docker-compose restart backend
+```
+
+### 6. Stop Services
 
 ```bash
 docker-compose down
 ```
 
-### 6. Stop Services & Remove Data
-
-```bash
-docker-compose down -v
-```
-
 ## Docker Compose Services
-
-### PostgreSQL (`postgres`)
-- Image: `postgres:15-alpine`
-- Port: `5432`
-- Volumes: `postgres_data` (persistent)
-- Environment: Database credentials from `.env`
 
 ### Backend (`backend`)
 - Dockerfile: `backend/Dockerfile`
-- Port: `8000`
-- Depends on: PostgreSQL
-- Environment: Database connection from `.env`
+- Port: `8001`
+- Environment: PostgreSQL connection details from `.env`
+- Connects to: External PostgreSQL instance
 
 ### Frontend (`frontend`)
 - Dockerfile: `frontend/Dockerfile`
-- Port: `3000`
+- Port: `3001`
 - Depends on: Backend
 - Reverse Proxy: Nginx with API proxy to backend
 
@@ -228,27 +234,22 @@ FRONTEND_PORT=3002
 
 Then update `docker-compose.yml` or use:
 ```bash
-docker-compose up -p custom-port -d
-```
-
-### Database Connection Failed
-
-```bash
-# Check PostgreSQL logs
-docker-compose logs postgres
-
-# Verify PostgreSQL is running
-docker-compose ps
-
-# Wait for PostgreSQL to be ready
-docker-compose exec postgres pg_isready
+docker-compose up -d
 ```
 
 ### Backend Can't Connect to Database
 
-Ensure `DATABASE_HOST=postgres` (the service name, not localhost)
-
-The error is likely in `.env` or environment variables.
+1. **Verify database is running** at the configured host
+2. **Check `.env` database credentials**:
+   ```
+   DATABASE_HOST=your-postgres-host
+   DATABASE_PORT=5432
+   DATABASE_USER=your-username
+   DATABASE_PASSWORD=your-password
+   DATABASE_NAME=your-database
+   ```
+3. **Check backend logs**: `docker-compose logs backend`
+4. **Restart backend**: `docker-compose restart backend`
 
 ### Frontend Shows Blank Page
 
@@ -309,24 +310,8 @@ docker build -t postgresql-dashboard:frontend ./frontend
 ## Network Configuration
 
 All services communicate on the `dashboard-network` bridge network:
-- Frontend → Backend: `http://backend:8000`
-- Backend → Database: `postgres://postgres:5432`
-- Frontend → Database: Not directly (goes through backend)
-
-## Volume Management
-
-### PostgreSQL Data Volume
-
-View volumes:
-```bash
-docker volume ls
-
-# Inspect specific volume
-docker volume inspect postgresql-dashboard_postgres_data
-
-# Backup data
-docker run --rm -v postgresql-dashboard_postgres_data:/data -v C:\backup:/backup alpine tar czf /backup/postgres_backup.tar.gz -C /data .
-```
+- Frontend → Backend: `http://backend:8001`
+- Backend → PostgreSQL: Uses external database connection (configured in `.env`)
 
 ## Health Checks
 
