@@ -1,0 +1,76 @@
+from fastapi import APIRouter, HTTPException
+from app.models.schemas import DatabaseConnection, TableData, TableInfo
+from app.services.pg_service import PostgreSQLService
+
+router = APIRouter(prefix="/api/database", tags=["database"])
+
+# Store current connection (in production, use session/auth)
+current_connection: PostgreSQLService = None
+
+@router.post("/connect")
+async def connect_database(connection: DatabaseConnection):
+    """Connect to PostgreSQL database"""
+    global current_connection
+    
+    try:
+        current_connection = PostgreSQLService(
+            host=connection.host,
+            port=connection.port,
+            user=connection.user,
+            password=connection.password,
+            database=connection.database
+        )
+        
+        if current_connection.connect():
+            return {"status": "connected", "message": "Successfully connected to database"}
+        else:
+            raise HTTPException(status_code=400, detail="Failed to connect to database")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@router.get("/databases")
+async def get_databases():
+    """Get list of all databases"""
+    if not current_connection:
+        raise HTTPException(status_code=400, detail="Not connected to database")
+    
+    databases = current_connection.get_databases()
+    return {"databases": databases}
+
+@router.get("/tables")
+async def get_tables():
+    """Get list of all tables in current database"""
+    if not current_connection:
+        raise HTTPException(status_code=400, detail="Not connected to database")
+    
+    tables = current_connection.get_tables()
+    return {"tables": tables}
+
+@router.get("/table/{table_name}")
+async def get_table_data(table_name: str, limit: int = 100):
+    """Get data from a specific table"""
+    if not current_connection:
+        raise HTTPException(status_code=400, detail="Not connected to database")
+    
+    data = current_connection.get_table_data(table_name, limit)
+    return data
+
+@router.get("/table/{table_name}/count")
+async def get_table_row_count(table_name: str):
+    """Get row count for a table"""
+    if not current_connection:
+        raise HTTPException(status_code=400, detail="Not connected to database")
+    
+    count = current_connection.get_table_row_count(table_name)
+    return {"table_name": table_name, "row_count": count}
+
+@router.post("/disconnect")
+async def disconnect_database():
+    """Disconnect from database"""
+    global current_connection
+    
+    if current_connection:
+        current_connection.disconnect()
+        current_connection = None
+    
+    return {"status": "disconnected", "message": "Disconnected from database"}

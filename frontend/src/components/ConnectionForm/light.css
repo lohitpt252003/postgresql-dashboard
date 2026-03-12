@@ -1,0 +1,38 @@
+/* Light Theme for ConnectionForm */
+.connectionform-container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.connectionform-form {
+  background: white;
+}
+
+.connectionform-title {
+  color: #333;
+}
+
+.connectionform-label {
+  color: #333;
+}
+
+.connectionform-input {
+  border-color: #ddd;
+  color: #333;
+  background: white;
+}
+
+.connectionform-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.connectionform-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.connectionform-error {
+  background-color: #fee;
+  color: #c33;
+  border-left-color: #c33;
+}

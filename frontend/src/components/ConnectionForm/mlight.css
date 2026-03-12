@@ -1,0 +1,43 @@
+/* Mobile Light Theme for ConnectionForm */
+@media (max-width: 768px) {
+  .connectionform-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+  }
+
+  .connectionform-form {
+    background: white;
+    padding: 25px;
+    max-width: 100%;
+  }
+
+  .connectionform-title {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 25px;
+  }
+
+  .connectionform-group {
+    margin-bottom: 15px;
+  }
+
+  .connectionform-label {
+    color: #333;
+    font-size: 13px;
+  }
+
+  .connectionform-input {
+    border-color: #ddd;
+    color: #333;
+    background: white;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .connectionform-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px;
+    font-size: 14px;
+  }
+}

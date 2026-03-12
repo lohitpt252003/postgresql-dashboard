@@ -1,0 +1,22 @@
+# Frontend Development Dockerfile - React with npm start
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY package.json package-lock.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy only public and create src directory structure
+COPY public ./public
+
+# Expose port
+EXPOSE 3000
+
+# Set environment variables
+ENV REACT_APP_API_URL=http://localhost:8000
+
+# Start development server
+CMD ["npm", "start"]
