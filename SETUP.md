@@ -12,9 +12,9 @@ copy .env.example .env
 docker-compose up -d
 
 # 3. Access the application
-# Frontend: http://localhost:3000
-# Backend: http://localhost:8000
-# Docs: http://localhost:8000/docs
+# Frontend: http://localhost:3001
+# Backend: http://localhost:8001
+# Docs: http://localhost:8001/docs
 
 # 4. Stop services
 docker-compose down

@@ -35,8 +35,8 @@ Edit `.env` to customize database credentials if needed:
 DB_USER=postgres
 DB_PASSWORD=password
 DB_NAME=postgres
-BACKEND_PORT=8000
-FRONTEND_PORT=3000
+BACKEND_PORT=8001
+FRONTEND_PORT=3001
 ```
 
 ### 3. Start All Services
@@ -53,9 +53,9 @@ This will:
 
 ### 4. Access the Application
 
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8000
-- **API Docs**: http://localhost:8000/docs
+- **Frontend**: http://localhost:3001
+- **Backend API**: http://localhost:8001
+- **API Docs**: http://localhost:8001/docs
 - **PostgreSQL**: localhost:5432
 
 ### 5. Stop Services
@@ -214,10 +214,16 @@ docker-compose ps
 
 ### Port Already in Use
 
-Change ports in `.env`:
+Change ports in `.env`. Default ports are 8001 and 3001:
 ```
 BACKEND_PORT=8001
 FRONTEND_PORT=3001
+```
+
+For different ports, edit `.env`:
+```
+BACKEND_PORT=8002
+FRONTEND_PORT=3002
 ```
 
 Then update `docker-compose.yml` or use:

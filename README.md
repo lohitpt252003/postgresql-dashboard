@@ -20,10 +20,10 @@ copy .env.example .env
 # Start all services
 docker-compose up -d
 
-# Access application
-# Frontend: http://localhost:3000
-# Backend API: http://localhost:8000
-# Docs: http://localhost:8000/docs
+# Access the application
+# Frontend: http://localhost:3001
+# Backend: http://localhost:8001
+# Docs: http://localhost:8001/docs
 ```
 
 See [DOCKER.md](DOCKER.md) for detailed Docker Compose instructions.
