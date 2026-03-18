@@ -4,7 +4,7 @@ A full-stack dashboard for connecting to a PostgreSQL database and exploring its
 
 ## Stack
 
-- Frontend: React 18 + Axios + Nginx
+- Frontend: React 18 + Axios + static Node server
 - Backend: FastAPI + psycopg2
 - Runtime: Docker Compose
 

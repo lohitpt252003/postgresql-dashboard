@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: postgresql-dashboard-backend
     ports:
-      - "${BACdwsdadKEND_PORT:-8001}:8000"
+      - "${BACKEND_PORT:-8001}:8000"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
@@ -17,13 +17,15 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: http://localhost:8001
     container_name: postgresql-dashboard-frontend
     depends_on:
       - backend
     ports:
-      - "${FRONTEND_PORT:-3001}:80"
+      - "${FRONTEND_PORT:-3001}:3000"
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/"]
       interval: 30s
       timeout: 10s
       retries: 3

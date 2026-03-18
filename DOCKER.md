@@ -39,10 +39,10 @@ docker-compose up -d
 ### Frontend
 
 - Image source: `frontend/Dockerfile`
-- Container port: `80`
+- Container port: `3000`
 - Host port: `3001` by default
-- Purpose: React dashboard served by Nginx
-- API access: proxied by Nginx to `http://backend:8000`
+- Purpose: React dashboard served by a simple Node static server
+- API access: direct browser requests to `http://localhost:8001`
 
 ## Development Mode
 
@@ -67,7 +67,7 @@ If `make` is available, the root [Makefile](./Makefile) wraps the same commands 
 ## Notes
 
 - This stack does not run a PostgreSQL container. It connects to an external PostgreSQL instance using the credentials you enter in the app.
-- In production mode, the frontend uses same-origin `/api` requests through Nginx.
+- In Docker mode, the frontend build is configured with `REACT_APP_API_URL=http://localhost:8001`.
 - For local frontend development, set `REACT_APP_API_URL=http://localhost:8000`.
 - The backend process stores one active PostgreSQL connection in memory, so it is not multi-user safe yet.
 
@@ -82,5 +82,5 @@ If `make` is available, the root [Makefile](./Makefile) wraps the same commands 
 ### Frontend cannot load API data
 
 - Confirm the backend is healthy at `http://localhost:8001/health`.
-- In production mode, confirm [frontend/nginx.conf](./frontend/nginx.conf) still proxies `/api` to `backend:8000`.
+- Confirm the frontend container was built with `REACT_APP_API_URL=http://localhost:8001`.
 - For local frontend development, confirm `REACT_APP_API_URL` points to `http://localhost:8000`.

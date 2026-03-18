@@ -29,4 +29,4 @@ The app runs on `http://localhost:3000`.
 
 ## Production
 
-In Docker, the frontend is served by Nginx and uses same-origin `/api` requests proxied to the backend container.
+In Docker, the frontend is served by a simple Node static server and calls the backend directly through `REACT_APP_API_URL`.
