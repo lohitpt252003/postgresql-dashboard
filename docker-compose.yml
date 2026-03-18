@@ -4,8 +4,11 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: postgresql-dashboard-backend
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
     ports:
       - "${BACKEND_PORT:-8001}:8000"
+    volumes:
+      - ./backend:/app
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
@@ -16,14 +19,19 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        REACT_APP_API_URL: http://localhost:8001
+      dockerfile: Dockerfile.dev
     container_name: postgresql-dashboard-frontend
     depends_on:
       - backend
+    command: npm start
+    environment:
+      REACT_APP_API_URL: http://localhost:8001
+      CHOKIDAR_USEPOLLING: "true"
     ports:
       - "${FRONTEND_PORT:-3001}:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/"]
       interval: 30s

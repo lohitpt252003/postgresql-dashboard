@@ -17,6 +17,7 @@ export const databaseApi = {
   getRelations: () => api.get('/api/database/relations'),
   getRelationDetails: (schema, name, limit = 100) =>
     api.get('/api/database/relation-details', { params: { schema, name, limit } }),
+  updateRelationRow: (payload) => api.put('/api/database/relation-row', payload),
   getTableData: (tableName, limit = 100, schema = 'public') =>
     api.get(`/api/database/table/${tableName}`, { params: { limit, schema } }),
   getTableRowCount: (tableName, schema = 'public') =>

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import Any, Dict, List
 
 class DatabaseConnection(BaseModel):
     host: str
@@ -15,3 +15,10 @@ class TableData(BaseModel):
 class TableInfo(BaseModel):
     name: str
     row_count: int
+
+
+class RowUpdateRequest(BaseModel):
+    schema: str
+    relation: str
+    primary_key: Dict[str, Any]
+    values: Dict[str, Any]

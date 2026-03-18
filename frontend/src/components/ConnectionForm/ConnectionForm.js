@@ -29,7 +29,7 @@ function ConnectionForm({ onConnect, isDarkMode = false, onToggleTheme }) {
     setError('');
 
     try {
-      const response = await databaseApi.connect(formData);
+      await databaseApi.connect(formData);
       setError('');
       onConnect(formData);
     } catch (err) {

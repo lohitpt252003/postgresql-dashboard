@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from app.models.schemas import DatabaseConnection
+from app.models.schemas import DatabaseConnection, RowUpdateRequest
 from app.services.pg_service import PostgreSQLService
 
 router = APIRouter(prefix="/api/database", tags=["database"])
@@ -70,6 +70,27 @@ async def get_relation_details(schema: str, name: str, limit: int = 100):
 
     details = current_connection.get_relation_details(schema, name, limit)
     return details
+
+@router.put("/relation-row")
+async def update_relation_row(request: RowUpdateRequest):
+    """Update a single row in an editable relation"""
+    if not current_connection:
+        raise HTTPException(status_code=400, detail="Not connected to database")
+
+    try:
+        result = current_connection.update_relation_row(
+            request.schema,
+            request.relation,
+            request.primary_key,
+            request.values,
+        )
+        return {
+            "status": "updated",
+            "updated_rows": result["updated"],
+            "primary_key_columns": result["primary_key_columns"],
+        }
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
 
 @router.get("/table/{table_name}")
 async def get_table_data(table_name: str, limit: int = 100, schema: str = "public"):

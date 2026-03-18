@@ -62,7 +62,17 @@ docker-compose exec backend bash
 docker-compose exec frontend sh
 ```
 
-If `make` is available, the root [Makefile](./Makefile) wraps the same commands with `make up`, `make dev`, `make logs`, `make health`, and related helpers.
+Windows PowerShell helper:
+
+```powershell
+.\scripts\refresh-docker.ps1
+```
+
+Auto-watch mode:
+
+```powershell
+.\scripts\refresh-docker.ps1 -Watch
+```
 
 ## Notes
 

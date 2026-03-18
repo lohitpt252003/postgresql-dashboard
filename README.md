@@ -26,6 +26,18 @@ Stop the app with:
 docker-compose down
 ```
 
+Refresh after changes:
+
+```powershell
+.\scripts\refresh-docker.ps1
+```
+
+Watch for changes and auto-refresh:
+
+```powershell
+.\scripts\refresh-docker.ps1 -Watch
+```
+
 ## Manual Run
 
 ### Backend

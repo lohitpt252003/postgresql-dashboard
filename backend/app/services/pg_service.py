@@ -161,6 +161,82 @@ class PostgreSQLService:
             print(f"Error fetching relation columns: {e}")
             return []
 
+    def get_relation_kind(self, schema_name: str, relation_name: str) -> str | None:
+        """Get the PostgreSQL relkind code for a relation"""
+        if not self.connection:
+            return None
+
+        try:
+            cursor = self.connection.cursor()
+            cursor.execute(
+                """
+                SELECT c.relkind
+                FROM pg_class c
+                INNER JOIN pg_namespace n ON n.oid = c.relnamespace
+                WHERE n.nspname = %s AND c.relname = %s
+                """,
+                (schema_name, relation_name),
+            )
+            result = cursor.fetchone()
+            cursor.close()
+            return result[0] if result else None
+        except psycopg2.Error as e:
+            print(f"Error fetching relation kind: {e}")
+            return None
+
+    def get_primary_key_columns(self, schema_name: str, relation_name: str) -> List[str]:
+        """Get the primary key columns for a relation"""
+        if not self.connection:
+            return []
+
+        try:
+            cursor = self.connection.cursor()
+            cursor.execute(
+                """
+                SELECT kcu.column_name
+                FROM information_schema.table_constraints tc
+                INNER JOIN information_schema.key_column_usage kcu
+                    ON tc.constraint_name = kcu.constraint_name
+                    AND tc.table_schema = kcu.table_schema
+                WHERE tc.constraint_type = 'PRIMARY KEY'
+                  AND tc.table_schema = %s
+                  AND tc.table_name = %s
+                ORDER BY kcu.ordinal_position
+                """,
+                (schema_name, relation_name),
+            )
+            primary_key_columns = [row[0] for row in cursor.fetchall()]
+            cursor.close()
+            return primary_key_columns
+        except psycopg2.Error as e:
+            print(f"Error fetching primary key columns: {e}")
+            return []
+
+    def get_relation_editability(self, schema_name: str, relation_name: str) -> Dict[str, Any]:
+        """Describe whether a relation can be edited from the dashboard"""
+        relation_kind = self.get_relation_kind(schema_name, relation_name)
+        primary_key_columns = self.get_primary_key_columns(schema_name, relation_name)
+
+        if relation_kind not in {"r", "p"}:
+            return {
+                "is_editable": False,
+                "reason": "Only tables and partitioned tables can be edited.",
+                "primary_key_columns": primary_key_columns,
+            }
+
+        if not primary_key_columns:
+            return {
+                "is_editable": False,
+                "reason": "A primary key is required to edit rows safely.",
+                "primary_key_columns": [],
+            }
+
+        return {
+            "is_editable": True,
+            "reason": None,
+            "primary_key_columns": primary_key_columns,
+        }
+
     def get_relation_relationships(self, schema_name: str, relation_name: str) -> Dict[str, List[Dict[str, Any]]]:
         """Get outgoing and incoming foreign-key relationships for a relation"""
         if not self.connection:
@@ -296,6 +372,7 @@ class PostgreSQLService:
         relationships = self.get_relation_relationships(schema_name, relation_name)
         row_count = self.get_table_row_count(relation_name, schema_name)
         data = self.get_table_data(relation_name, limit, schema_name)
+        editability = self.get_relation_editability(schema_name, relation_name)
 
         return {
             "relation": {
@@ -304,6 +381,72 @@ class PostgreSQLService:
             },
             "columns": columns,
             "relationships": relationships,
+            "editability": editability,
             "row_count": row_count,
             "rows": data.get("rows", []),
         }
+
+    def update_relation_row(
+        self,
+        schema_name: str,
+        relation_name: str,
+        primary_key: Dict[str, Any],
+        values: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        """Update a single row identified by primary key values"""
+        if not self.connection:
+            raise ValueError("Not connected to database")
+
+        editability = self.get_relation_editability(schema_name, relation_name)
+        if not editability["is_editable"]:
+            raise ValueError(editability["reason"])
+
+        if not values:
+            raise ValueError("No field values were provided for update.")
+
+        primary_key_columns = editability["primary_key_columns"]
+        missing_primary_keys = [column for column in primary_key_columns if column not in primary_key]
+        if missing_primary_keys:
+            raise ValueError(f"Missing primary key values for: {', '.join(missing_primary_keys)}")
+
+        set_columns = list(values.keys())
+        set_clauses = [
+            sql.SQL("{} = %s").format(sql.Identifier(column_name))
+            for column_name in set_columns
+        ]
+        where_clauses = [
+            sql.SQL("{} = %s").format(sql.Identifier(column_name))
+            for column_name in primary_key_columns
+        ]
+        parameters = [values[column_name] for column_name in set_columns]
+        parameters.extend(primary_key[column_name] for column_name in primary_key_columns)
+
+        query = sql.SQL(
+            "UPDATE {}.{} SET {} WHERE {}"
+        ).format(
+            sql.Identifier(schema_name),
+            sql.Identifier(relation_name),
+            sql.SQL(", ").join(set_clauses),
+            sql.SQL(" AND ").join(where_clauses),
+        )
+
+        try:
+            cursor = self.connection.cursor()
+            cursor.execute(query, parameters)
+            updated_count = cursor.rowcount
+            self.connection.commit()
+            cursor.close()
+
+            if updated_count == 0:
+                raise ValueError("No matching row was found to update.")
+
+            return {
+                "updated": updated_count,
+                "primary_key_columns": primary_key_columns,
+            }
+        except ValueError:
+            raise
+        except psycopg2.Error as e:
+            self.connection.rollback()
+            print(f"Error updating relation row: {e}")
+            raise ValueError(str(e)) from e
