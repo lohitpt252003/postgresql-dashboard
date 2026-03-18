@@ -59,6 +59,11 @@
   border-color: #e0e0e0;
 }
 
+.dashboard-relationtype {
+  background: #eef2ff;
+  color: #4453b3;
+}
+
 .dashboard-tableitem.active {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -86,8 +91,34 @@
   color: #333;
 }
 
+.dashboard-relationmeta {
+  color: #666;
+}
+
 .dashboard-rowcount {
   color: #999;
+}
+
+.dashboard-metadata {
+  border-bottom-color: #e0e0e0;
+}
+
+.dashboard-metatitle,
+.dashboard-relationshiptitle,
+.dashboard-fieldname {
+  color: #333;
+}
+
+.dashboard-fieldtype,
+.dashboard-fieldmeta,
+.dashboard-relationshipitem {
+  color: #666;
+}
+
+.dashboard-fielditem,
+.dashboard-relationshipitem {
+  background: #fafafa;
+  border-color: #ececec;
 }
 
 th {

@@ -18,10 +18,6 @@ function App() {
     setConnectionData(null);
   };
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   return (
     <div className="App" data-theme={isDarkMode ? 'dark' : 'light'}>
       {isConnected ? (

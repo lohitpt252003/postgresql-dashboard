@@ -8,11 +8,11 @@ import './mdark.css';
 
 function ConnectionForm({ onConnect, isDarkMode = false }) {
   const [formData, setFormData] = useState({
-    host: 'localhost',
+    host: '',
     port: 5432,
-    user: 'postgres',
+    user: '',
     password: '',
-    database: 'postgres',
+    database: '',
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -55,6 +55,7 @@ function ConnectionForm({ onConnect, isDarkMode = false }) {
               id="host"
               name="host"
               className="connectionform-input"
+              placeholder="e.g., localhost, host.docker.internal, or your IP"
               value={formData.host}
               onChange={handleChange}
               required
@@ -68,6 +69,7 @@ function ConnectionForm({ onConnect, isDarkMode = false }) {
               id="port"
               name="port"
               className="connectionform-input"
+              placeholder="5432"
               value={formData.port}
               onChange={handleChange}
               required
@@ -81,6 +83,7 @@ function ConnectionForm({ onConnect, isDarkMode = false }) {
               id="user"
               name="user"
               className="connectionform-input"
+              placeholder="e.g., postgres"
               value={formData.user}
               onChange={handleChange}
               required
@@ -94,6 +97,7 @@ function ConnectionForm({ onConnect, isDarkMode = false }) {
               id="password"
               name="password"
               className="connectionform-input"
+              placeholder="Enter database password"
               value={formData.password}
               onChange={handleChange}
             />
@@ -106,6 +110,7 @@ function ConnectionForm({ onConnect, isDarkMode = false }) {
               id="database"
               name="database"
               className="connectionform-input"
+              placeholder="e.g., course_seller"
               value={formData.database}
               onChange={handleChange}
               required

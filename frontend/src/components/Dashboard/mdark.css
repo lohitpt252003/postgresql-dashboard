@@ -8,6 +8,9 @@
     background: linear-gradient(135deg, #2d2d44 0%, #16213e 100%);
     color: #e0e0e0;
     padding: 15px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 
   .dashboard-title {
@@ -16,7 +19,7 @@
   }
 
   .dashboard-sidebar {
-    width: 200px;
+    width: 220px;
     background: #252541;
   }
 
@@ -43,6 +46,19 @@
   .dashboard-maincontent {
     padding: 15px;
     background-color: #1a1a2e;
+  }
+
+  .dashboard-metadata,
+  .dashboard-sampledata {
+    padding: 15px;
+  }
+
+  .dashboard-fieldtopline,
+  .dashboard-fieldmeta,
+  .dashboard-sampleheader,
+  .dashboard-tableheader {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   th {

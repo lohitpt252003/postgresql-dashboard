@@ -88,6 +88,26 @@
   border: 1px solid;
 }
 
+.dashboard-relationitem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dashboard-relationname {
+  font-weight: 600;
+}
+
+.dashboard-relationtype {
+  display: inline-flex;
+  width: fit-content;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
 .dashboard-tableitem:hover {
   transition: all 0.2s;
 }
@@ -129,8 +149,94 @@
   font-size: 20px;
 }
 
+.dashboard-relationheadercopy {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dashboard-relationmeta {
+  font-size: 13px;
+}
+
 .dashboard-rowcount {
   font-size: 14px;
+}
+
+.dashboard-metadata {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 20px;
+  padding: 20px;
+  border-bottom: 1px solid;
+}
+
+.dashboard-metacard,
+.dashboard-sampledata {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dashboard-metatitle {
+  margin: 0;
+  font-size: 16px;
+}
+
+.dashboard-fieldlist,
+.dashboard-relationshiplist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dashboard-fielditem,
+.dashboard-relationshipitem {
+  padding: 12px;
+  border: 1px solid;
+  border-radius: 8px;
+}
+
+.dashboard-fieldtopline,
+.dashboard-fieldmeta,
+.dashboard-sampleheader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dashboard-fieldtopline {
+  margin-bottom: 6px;
+}
+
+.dashboard-fieldname {
+  font-weight: 600;
+}
+
+.dashboard-fieldtype {
+  font-size: 12px;
+}
+
+.dashboard-fieldmeta {
+  font-size: 12px;
+}
+
+.dashboard-relationshipgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dashboard-relationshiptitle {
+  margin: 0;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.dashboard-sampledata {
+  padding: 20px;
 }
 
 .dashboard-tablecontainer {
@@ -181,4 +287,14 @@ tbody tr:hover {
 .dashboard-nodata {
   padding: 40px;
   text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-sidebar {
+    width: 290px;
+  }
+
+  .dashboard-metadata {
+    grid-template-columns: 1fr;
+  }
 }
