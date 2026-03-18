@@ -4,6 +4,24 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  padding: 24px;
+  position: relative;
+}
+
+.connectionform-toolbar {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+.connectionform-theme-btn {
+  padding: 10px 14px;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .connectionform-form {
@@ -44,7 +62,6 @@
 
 .connectionform-input:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .connectionform-button {
@@ -74,4 +91,26 @@
   margin-bottom: 20px;
   font-size: 14px;
   border-left: 4px solid;
+}
+
+@media (max-width: 768px) {
+  .connectionform-container {
+    padding: 16px;
+    align-items: flex-start;
+  }
+
+  .connectionform-toolbar {
+    top: 16px;
+    right: 16px;
+  }
+
+  .connectionform-form {
+    margin-top: 56px;
+    padding: 28px 20px;
+  }
+
+  .connectionform-title {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
 }

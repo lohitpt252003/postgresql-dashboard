@@ -1,37 +1,43 @@
-/* Light Theme for ConnectionForm */
-.connectionform-container {
+[data-theme='light'] .connectionform-container {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-.connectionform-form {
+[data-theme='light'] .connectionform-form {
   background: white;
 }
 
-.connectionform-title {
+[data-theme='light'] .connectionform-theme-btn {
+  background: rgba(255, 255, 255, 0.16);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+[data-theme='light'] .connectionform-theme-btn:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+[data-theme='light'] .connectionform-title,
+[data-theme='light'] .connectionform-label {
   color: #333;
 }
 
-.connectionform-label {
-  color: #333;
-}
-
-.connectionform-input {
+[data-theme='light'] .connectionform-input {
   border-color: #ddd;
   color: #333;
   background: white;
 }
 
-.connectionform-input:focus {
+[data-theme='light'] .connectionform-input:focus {
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.connectionform-button {
+[data-theme='light'] .connectionform-button {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
 }
 
-.connectionform-error {
+[data-theme='light'] .connectionform-error {
   background-color: #fee;
   color: #c33;
   border-left-color: #c33;

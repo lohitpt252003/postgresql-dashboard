@@ -9,8 +9,6 @@ Each component has the following CSS files:
 - **index.css** - Base/common styles
 - **light.css** - Light theme styles
 - **dark.css** - Dark theme styles
-- **mlight.css** - Mobile light theme styles
-- **mdark.css** - Mobile dark theme styles
 
 ## Component Classes
 
@@ -22,48 +20,48 @@ Each component has the following CSS files:
 - `.connectionform-label` - Input label
 - `.connectionform-input` - Input field
 - `.connectionform-button` - Submit button
+- `.connectionform-theme-btn` - Theme toggle button
 - `.connectionform-error` - Error message
 
 ### Dashboard
 - `.dashboard` - Main container
 - `.dashboard-header` - Header section
 - `.dashboard-title` - Page title
-- `.dashboard-connectioninfo` - Connection info container
-- `.dashboard-connectiontext` - Connection text
-- `.dashboard-disconnectbtn` - Disconnect button
+- `.dashboard-connection-info` - Connection info container
+- `.dashboard-connection-text` - Connection text
+- `.dashboard-theme-btn` - Theme toggle button
+- `.dashboard-disconnect-btn` - Disconnect button
 - `.dashboard-error` - Error message
 - `.dashboard-content` - Main content area
 - `.dashboard-sidebar` - Sidebar
 - `.dashboard-section` - Sidebar section
-- `.dashboard-sectiontitle` - Section title
+- `.dashboard-section-title` - Section title
 - `.dashboard-list` - Item list
-- `.dashboard-dbitem` - Database item
-- `.dashboard-tableitem` - Table item
-- `.dashboard-maincontent` - Main content
-- `.dashboard-noselection` - No selection message
-- `.dashboard-tableview` - Table view container
-- `.dashboard-tableheader` - Table header
-- `.dashboard-tablename` - Table name
-- `.dashboard-rowcount` - Row count
-- `.dashboard-tablecontainer` - Table container
-- `.dashboard-columnheader` - Column header
-- `.dashboard-columntype` - Column type
+- `.dashboard-db-item` - Database item
+- `.dashboard-table-item` - Table item
+- `.dashboard-main-content` - Main content
+- `.dashboard-no-selection` - No selection message
+- `.dashboard-table-view` - Table view container
+- `.dashboard-table-header` - Table header
+- `.dashboard-table-name` - Table name
+- `.dashboard-row-count` - Row count
+- `.dashboard-table-container` - Table container
+- `.dashboard-column-header` - Column header
+- `.dashboard-column-type` - Column type
 - `.dashboard-loading` - Loading message
-- `.dashboard-nodata` - No data message
+- `.dashboard-no-data` - No data message
 
 ## Theme Usage
 
 Import CSS files in order:
 1. index.css (base)
 2. light.css or dark.css (theme)
-3. mlight.css or mdark.css (mobile)
 
 ```javascript
 import './index.css';
 import './light.css';     // or dark.css
-import './mlight.css';    // or mdark.css
 ```
 
 ## Mobile Breakpoint
 
-Mobile styles use `@media (max-width: 768px)`
+Mobile styles live in `index.css` via `@media (max-width: 768px)`

@@ -1,37 +1,43 @@
-/* Dark Theme for ConnectionForm */
-.connectionform-container {
+[data-theme='dark'] .connectionform-container {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
 }
 
-.connectionform-form {
+[data-theme='dark'] .connectionform-form {
   background: #2d2d44;
 }
 
-.connectionform-title {
+[data-theme='dark'] .connectionform-theme-btn {
+  background: rgba(20, 28, 48, 0.55);
+  color: #dce4ff;
+  border-color: rgba(151, 167, 255, 0.35);
+}
+
+[data-theme='dark'] .connectionform-theme-btn:hover {
+  background: rgba(20, 28, 48, 0.72);
+}
+
+[data-theme='dark'] .connectionform-title,
+[data-theme='dark'] .connectionform-label {
   color: #e0e0e0;
 }
 
-.connectionform-label {
-  color: #b0b0b0;
-}
-
-.connectionform-input {
+[data-theme='dark'] .connectionform-input {
   border-color: #444;
   color: #e0e0e0;
   background: #3a3a4e;
 }
 
-.connectionform-input:focus {
+[data-theme='dark'] .connectionform-input:focus {
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
-.connectionform-button {
+[data-theme='dark'] .connectionform-button {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
 }
 
-.connectionform-error {
+[data-theme='dark'] .connectionform-error {
   background-color: #3a1f1f;
   color: #ff6b6b;
   border-left-color: #ff6b6b;

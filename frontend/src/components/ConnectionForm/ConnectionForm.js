@@ -3,10 +3,8 @@ import { databaseApi } from '../../api';
 import './index.css';
 import './light.css';
 import './dark.css';
-import './mlight.css';
-import './mdark.css';
 
-function ConnectionForm({ onConnect, isDarkMode = false }) {
+function ConnectionForm({ onConnect, isDarkMode = false, onToggleTheme }) {
   const [formData, setFormData] = useState({
     host: '',
     port: 5432,
@@ -43,6 +41,15 @@ function ConnectionForm({ onConnect, isDarkMode = false }) {
 
   return (
     <div className="connectionform-container">
+      <div className="connectionform-toolbar">
+        <button
+          type="button"
+          className="connectionform-theme-btn"
+          onClick={onToggleTheme}
+        >
+          {isDarkMode ? 'Light Theme' : 'Dark Theme'}
+        </button>
+      </div>
       <div className="connectionform-form">
         <h2 className="connectionform-title">Connect to PostgreSQL</h2>
         {error && <div className="connectionform-error">{error}</div>}

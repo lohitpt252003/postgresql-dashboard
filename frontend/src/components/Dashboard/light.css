@@ -1,145 +1,134 @@
-/* Light Theme for Dashboard */
-.dashboard {
+[data-theme='light'] .dashboard {
   background-color: #f5f5f5;
 }
 
-.dashboard-header {
+[data-theme='light'] .dashboard-header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
 }
 
-.dashboard-title {
+[data-theme='light'] .dashboard-title,
+[data-theme='light'] .dashboard-connection-text {
   color: white;
 }
 
-.dashboard-connectiontext {
+[data-theme='light'] .dashboard-connection-text {
   opacity: 0.9;
-  color: white;
 }
 
-.dashboard-disconnectbtn {
-  background: rgba(255, 255, 255, 0.2);
+[data-theme='light'] .dashboard-theme-btn,
+[data-theme='light'] .dashboard-disconnect-btn {
+  background: rgba(255, 255, 255, 0.18);
   color: white;
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
-.dashboard-disconnectbtn:hover {
+[data-theme='light'] .dashboard-theme-btn:hover,
+[data-theme='light'] .dashboard-disconnect-btn:hover {
   background: rgba(255, 255, 255, 0.3);
   border-color: rgba(255, 255, 255, 0.6);
 }
 
-.dashboard-error {
+[data-theme='light'] .dashboard-error {
   background-color: #fee;
   color: #c33;
   border-bottom-color: #fdd;
 }
 
-.dashboard-sidebar {
+[data-theme='light'] .dashboard-sidebar {
   background: white;
   border-right-color: #e0e0e0;
 }
 
-.dashboard-section {
+[data-theme='light'] .dashboard-section {
   border-bottom-color: #f0f0f0;
 }
 
-.dashboard-sectiontitle {
+[data-theme='light'] .dashboard-section-title {
   color: #333;
 }
 
-.dashboard-dbitem,
-.dashboard-tableitem {
+[data-theme='light'] .dashboard-db-item,
+[data-theme='light'] .dashboard-table-item {
   color: #555;
   background: #fafafa;
   border-color: #f0f0f0;
 }
 
-.dashboard-tableitem:hover {
+[data-theme='light'] .dashboard-table-item:hover {
   background: #f0f0f0;
   border-color: #e0e0e0;
 }
 
-.dashboard-relationtype {
+[data-theme='light'] .dashboard-relation-type {
   background: #eef2ff;
   color: #4453b3;
 }
 
-.dashboard-tableitem.active {
+[data-theme='light'] .dashboard-table-item.active {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border-color: #667eea;
 }
 
-.dashboard-maincontent {
+[data-theme='light'] .dashboard-main-content {
   background-color: #f5f5f5;
 }
 
-.dashboard-noselection {
+[data-theme='light'] .dashboard-no-selection,
+[data-theme='light'] .dashboard-loading,
+[data-theme='light'] .dashboard-no-data {
   color: #999;
 }
 
-.dashboard-tableview {
+[data-theme='light'] .dashboard-table-view {
   background: white;
 }
 
-.dashboard-tableheader {
+[data-theme='light'] .dashboard-table-header {
   background: #fafafa;
   border-bottom-color: #e0e0e0;
 }
 
-.dashboard-tablename {
+[data-theme='light'] .dashboard-table-name,
+[data-theme='light'] .dashboard-meta-title,
+[data-theme='light'] .dashboard-relationship-title,
+[data-theme='light'] .dashboard-field-name,
+[data-theme='light'] th {
   color: #333;
 }
 
-.dashboard-relationmeta {
+[data-theme='light'] .dashboard-relation-meta,
+[data-theme='light'] .dashboard-field-type,
+[data-theme='light'] .dashboard-field-meta,
+[data-theme='light'] .dashboard-relationship-item {
   color: #666;
 }
 
-.dashboard-rowcount {
+[data-theme='light'] .dashboard-row-count,
+[data-theme='light'] .dashboard-column-type {
   color: #999;
 }
 
-.dashboard-metadata {
+[data-theme='light'] .dashboard-metadata {
   border-bottom-color: #e0e0e0;
 }
 
-.dashboard-metatitle,
-.dashboard-relationshiptitle,
-.dashboard-fieldname {
-  color: #333;
-}
-
-.dashboard-fieldtype,
-.dashboard-fieldmeta,
-.dashboard-relationshipitem {
-  color: #666;
-}
-
-.dashboard-fielditem,
-.dashboard-relationshipitem {
+[data-theme='light'] .dashboard-field-item,
+[data-theme='light'] .dashboard-relationship-item {
   background: #fafafa;
   border-color: #ececec;
 }
 
-th {
+[data-theme='light'] th {
   background: #f5f5f5;
-  color: #333;
 }
 
-.dashboard-columntype {
-  color: #999;
-}
-
-td {
+[data-theme='light'] td {
   color: #555;
   border-bottom-color: #f0f0f0;
 }
 
-tbody tr:hover {
+[data-theme='light'] tbody tr:hover {
   background: #f9f9f9;
-}
-
-.dashboard-loading,
-.dashboard-nodata {
-  color: #999;
 }

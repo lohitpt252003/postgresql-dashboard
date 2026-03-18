@@ -18,6 +18,10 @@ function App() {
     setConnectionData(null);
   };
 
+  const handleToggleTheme = () => {
+    setIsDarkMode((currentMode) => !currentMode);
+  };
+
   return (
     <div className="App" data-theme={isDarkMode ? 'dark' : 'light'}>
       {isConnected ? (
@@ -25,11 +29,13 @@ function App() {
           connectionData={connectionData} 
           onDisconnect={handleDisconnect}
           isDarkMode={isDarkMode}
+          onToggleTheme={handleToggleTheme}
         />
       ) : (
         <ConnectionForm 
           onConnect={handleConnect}
           isDarkMode={isDarkMode}
+          onToggleTheme={handleToggleTheme}
         />
       )}
     </div>

@@ -1,146 +1,147 @@
-/* Dark Theme for Dashboard */
-.dashboard {
+[data-theme='dark'] .dashboard {
   background-color: #1a1a2e;
 }
 
-.dashboard-header {
+[data-theme='dark'] .dashboard-header {
   background: linear-gradient(135deg, #2d2d44 0%, #16213e 100%);
   color: #e0e0e0;
   border-bottom: 1px solid #444;
 }
 
-.dashboard-title {
+[data-theme='dark'] .dashboard-title {
   color: #e0e0e0;
 }
 
-.dashboard-connectiontext {
+[data-theme='dark'] .dashboard-connection-text {
   opacity: 0.8;
   color: #b0b0b0;
 }
 
-.dashboard-disconnectbtn {
+[data-theme='dark'] .dashboard-theme-btn {
+  background: rgba(20, 28, 48, 0.55);
+  color: #dce4ff;
+  border-color: rgba(151, 167, 255, 0.35);
+}
+
+[data-theme='dark'] .dashboard-disconnect-btn {
   background: rgba(102, 126, 234, 0.15);
   color: #667eea;
   border-color: #667eea;
 }
 
-.dashboard-disconnectbtn:hover {
+[data-theme='dark'] .dashboard-theme-btn:hover,
+[data-theme='dark'] .dashboard-disconnect-btn:hover {
   background: rgba(102, 126, 234, 0.25);
   border-color: #7b8eea;
 }
 
-.dashboard-error {
+[data-theme='dark'] .dashboard-error {
   background-color: #3a1f1f;
   color: #ff6b6b;
   border-bottom-color: #5a2f2f;
 }
 
-.dashboard-sidebar {
+[data-theme='dark'] .dashboard-sidebar {
   background: #252541;
   border-right-color: #3a3a4e;
 }
 
-.dashboard-section {
+[data-theme='dark'] .dashboard-section {
   border-bottom-color: #333;
 }
 
-.dashboard-sectiontitle {
+[data-theme='dark'] .dashboard-section-title {
   color: #b0b0b0;
 }
 
-.dashboard-dbitem,
-.dashboard-tableitem {
+[data-theme='dark'] .dashboard-db-item,
+[data-theme='dark'] .dashboard-table-item {
   color: #b0b0b0;
   background: #2d2d44;
   border-color: #3a3a4e;
 }
 
-.dashboard-tableitem:hover {
+[data-theme='dark'] .dashboard-table-item:hover {
   background: #3a3a4e;
   border-color: #4a4a5e;
 }
 
-.dashboard-relationtype {
+[data-theme='dark'] .dashboard-relation-type {
   background: rgba(102, 126, 234, 0.15);
   color: #aab6ff;
 }
 
-.dashboard-tableitem.active {
+[data-theme='dark'] .dashboard-table-item.active {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border-color: #667eea;
 }
 
-.dashboard-maincontent {
+[data-theme='dark'] .dashboard-main-content {
   background-color: #1a1a2e;
 }
 
-.dashboard-noselection {
+[data-theme='dark'] .dashboard-no-selection,
+[data-theme='dark'] .dashboard-loading,
+[data-theme='dark'] .dashboard-no-data {
   color: #666;
 }
 
-.dashboard-tableview {
+[data-theme='dark'] .dashboard-table-view {
   background: #252541;
 }
 
-.dashboard-tableheader {
+[data-theme='dark'] .dashboard-table-header {
   background: #2d2d44;
   border-bottom-color: #3a3a4e;
 }
 
-.dashboard-tablename {
+[data-theme='dark'] .dashboard-table-name,
+[data-theme='dark'] .dashboard-meta-title,
+[data-theme='dark'] .dashboard-relationship-title,
+[data-theme='dark'] .dashboard-field-name,
+[data-theme='dark'] th {
   color: #e0e0e0;
 }
 
-.dashboard-relationmeta {
+[data-theme='dark'] .dashboard-relation-meta {
   color: #8d8daa;
 }
 
-.dashboard-rowcount {
+[data-theme='dark'] .dashboard-row-count {
   color: #888;
 }
 
-.dashboard-metadata {
+[data-theme='dark'] .dashboard-metadata {
   border-bottom-color: #3a3a4e;
 }
 
-.dashboard-metatitle,
-.dashboard-relationshiptitle,
-.dashboard-fieldname {
-  color: #e0e0e0;
-}
-
-.dashboard-fieldtype,
-.dashboard-fieldmeta,
-.dashboard-relationshipitem {
+[data-theme='dark'] .dashboard-field-type,
+[data-theme='dark'] .dashboard-field-meta,
+[data-theme='dark'] .dashboard-relationship-item {
   color: #b0b0c5;
 }
 
-.dashboard-fielditem,
-.dashboard-relationshipitem {
+[data-theme='dark'] .dashboard-field-item,
+[data-theme='dark'] .dashboard-relationship-item {
   background: #2d2d44;
   border-color: #3a3a4e;
 }
 
-th {
+[data-theme='dark'] th {
   background: #2d2d44;
   color: #b0b0b0;
 }
 
-.dashboard-columntype {
+[data-theme='dark'] .dashboard-column-type {
   color: #777;
 }
 
-td {
+[data-theme='dark'] td {
   color: #c0c0c0;
   border-bottom-color: #3a3a4e;
 }
 
-tbody tr:hover {
+[data-theme='dark'] tbody tr:hover {
   background: #2d2d44;
-}
-
-.dashboard-loading,
-.dashboard-nodata {
-  color: #666;
 }

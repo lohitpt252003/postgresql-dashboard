@@ -3,10 +3,8 @@ import { databaseApi } from '../../api';
 import './index.css';
 import './light.css';
 import './dark.css';
-import './mlight.css';
-import './mdark.css';
 
-function Dashboard({ connectionData, onDisconnect, isDarkMode = false }) {
+function Dashboard({ connectionData, onDisconnect, isDarkMode = false, onToggleTheme }) {
   const [databases, setDatabases] = useState([]);
   const [relations, setRelations] = useState([]);
   const [selectedRelation, setSelectedRelation] = useState(null);
@@ -74,11 +72,14 @@ function Dashboard({ connectionData, onDisconnect, isDarkMode = false }) {
     <div className="dashboard">
       <header className="dashboard-header">
         <h1 className="dashboard-title">PostgreSQL Dashboard</h1>
-        <div className="dashboard-connectioninfo">
-          <span className="dashboard-connectiontext">
+        <div className="dashboard-connection-info">
+          <button className="dashboard-theme-btn" onClick={onToggleTheme}>
+            {isDarkMode ? 'Light Theme' : 'Dark Theme'}
+          </button>
+          <span className="dashboard-connection-text">
             {connectionData.user}@{connectionData.host}:{connectionData.port}/{connectionData.database}
           </span>
-          <button className="dashboard-disconnectbtn" onClick={handleDisconnect}>Disconnect</button>
+          <button className="dashboard-disconnect-btn" onClick={handleDisconnect}>Disconnect</button>
         </div>
       </header>
 
@@ -87,16 +88,16 @@ function Dashboard({ connectionData, onDisconnect, isDarkMode = false }) {
       <div className="dashboard-content">
         <div className="dashboard-sidebar">
           <div className="dashboard-section">
-            <h3 className="dashboard-sectiontitle">Databases</h3>
+            <h3 className="dashboard-section-title">Databases</h3>
             <div className="dashboard-list">
               {databases.map((db) => (
-                <div key={db} className="dashboard-dbitem">{db}</div>
+                <div key={db} className="dashboard-db-item">{db}</div>
               ))}
             </div>
           </div>
 
           <div className="dashboard-section">
-            <h3 className="dashboard-sectiontitle">Relations</h3>
+            <h3 className="dashboard-section-title">Relations</h3>
             <div className="dashboard-list">
               {loadingOverview && <p className="dashboard-loading">Loading...</p>}
               {relations.map((relation) => {
@@ -109,12 +110,12 @@ function Dashboard({ connectionData, onDisconnect, isDarkMode = false }) {
                 return (
                 <div
                   key={relationKey}
-                  className={`dashboard-tableitem ${isActive ? 'active' : ''}`}
+                  className={`dashboard-table-item ${isActive ? 'active' : ''}`}
                   onClick={() => handleRelationClick(relation)}
                 >
-                  <div className="dashboard-relationitem">
-                    <span className="dashboard-relationname">{relationKey}</span>
-                    <span className="dashboard-relationtype">{relation.type}</span>
+                  <div className="dashboard-relation-item">
+                    <span className="dashboard-relation-name">{relationKey}</span>
+                    <span className="dashboard-relation-type">{relation.type}</span>
                   </div>
                 </div>
                 );
@@ -123,19 +124,19 @@ function Dashboard({ connectionData, onDisconnect, isDarkMode = false }) {
           </div>
         </div>
 
-        <div className="dashboard-maincontent">
+        <div className="dashboard-main-content">
           {selectedRelation ? (
-            <div className="dashboard-tableview">
-              <div className="dashboard-tableheader">
-                <div className="dashboard-relationheadercopy">
-                  <h2 className="dashboard-tablename">
+            <div className="dashboard-table-view">
+              <div className="dashboard-table-header">
+                <div className="dashboard-relation-header-copy">
+                  <h2 className="dashboard-table-name">
                     {selectedRelation.schema}.{selectedRelation.name}
                   </h2>
-                  <p className="dashboard-relationmeta">
+                  <p className="dashboard-relation-meta">
                     {selectedRelation.type} with {relationDetails.columns.length} fields
                   </p>
                 </div>
-                <span className="dashboard-rowcount">({relationDetails.row_count} rows)</span>
+                <span className="dashboard-row-count">({relationDetails.row_count} rows)</span>
               </div>
 
               {loadingDetails ? (
@@ -143,17 +144,17 @@ function Dashboard({ connectionData, onDisconnect, isDarkMode = false }) {
               ) : (
                 <>
                   <div className="dashboard-metadata">
-                    <section className="dashboard-metacard">
-                      <h3 className="dashboard-metatitle">Fields</h3>
+                    <section className="dashboard-meta-card">
+                      <h3 className="dashboard-meta-title">Fields</h3>
                       {relationDetails.columns.length > 0 ? (
-                        <div className="dashboard-fieldlist">
+                        <div className="dashboard-field-list">
                           {relationDetails.columns.map((column) => (
-                            <div key={column.name} className="dashboard-fielditem">
-                              <div className="dashboard-fieldtopline">
-                                <span className="dashboard-fieldname">{column.name}</span>
-                                <span className="dashboard-fieldtype">{column.type}</span>
+                            <div key={column.name} className="dashboard-field-item">
+                              <div className="dashboard-field-topline">
+                                <span className="dashboard-field-name">{column.name}</span>
+                                <span className="dashboard-field-type">{column.type}</span>
                               </div>
-                              <div className="dashboard-fieldmeta">
+                              <div className="dashboard-field-meta">
                                 <span>{column.nullable ? 'nullable' : 'required'}</span>
                                 <span>{column.default ? `default: ${column.default}` : 'no default'}</span>
                               </div>
@@ -161,20 +162,20 @@ function Dashboard({ connectionData, onDisconnect, isDarkMode = false }) {
                           ))}
                         </div>
                       ) : (
-                        <p className="dashboard-nodata">No fields found</p>
+                        <p className="dashboard-no-data">No fields found</p>
                       )}
                     </section>
 
-                    <section className="dashboard-metacard">
-                      <h3 className="dashboard-metatitle">Relationships</h3>
-                      <div className="dashboard-relationshipgroup">
-                        <h4 className="dashboard-relationshiptitle">Outgoing</h4>
+                    <section className="dashboard-meta-card">
+                      <h3 className="dashboard-meta-title">Relationships</h3>
+                      <div className="dashboard-relationship-group">
+                        <h4 className="dashboard-relationship-title">Outgoing</h4>
                         {relationDetails.relationships.outgoing.length > 0 ? (
-                          <div className="dashboard-relationshiplist">
+                          <div className="dashboard-relationship-list">
                             {relationDetails.relationships.outgoing.map((relationship) => (
                               <div
                                 key={`${relationship.constraint_name}-${relationship.column}`}
-                                className="dashboard-relationshipitem"
+                                className="dashboard-relationship-item"
                               >
                                 {relationship.column} -> {relationship.references_schema}.
                                 {relationship.references_relation}.{relationship.references_column}
@@ -182,18 +183,18 @@ function Dashboard({ connectionData, onDisconnect, isDarkMode = false }) {
                             ))}
                           </div>
                         ) : (
-                          <p className="dashboard-nodata">No outgoing foreign keys</p>
+                          <p className="dashboard-no-data">No outgoing foreign keys</p>
                         )}
                       </div>
 
-                      <div className="dashboard-relationshipgroup">
-                        <h4 className="dashboard-relationshiptitle">Incoming</h4>
+                      <div className="dashboard-relationship-group">
+                        <h4 className="dashboard-relationship-title">Incoming</h4>
                         {relationDetails.relationships.incoming.length > 0 ? (
-                          <div className="dashboard-relationshiplist">
+                          <div className="dashboard-relationship-list">
                             {relationDetails.relationships.incoming.map((relationship) => (
                               <div
                                 key={`${relationship.constraint_name}-${relationship.source_relation}-${relationship.source_column}`}
-                                className="dashboard-relationshipitem"
+                                className="dashboard-relationship-item"
                               >
                                 {relationship.source_schema}.{relationship.source_relation}.
                                 {relationship.source_column} -> {relationship.target_column}
@@ -201,29 +202,29 @@ function Dashboard({ connectionData, onDisconnect, isDarkMode = false }) {
                             ))}
                           </div>
                         ) : (
-                          <p className="dashboard-nodata">No incoming foreign keys</p>
+                          <p className="dashboard-no-data">No incoming foreign keys</p>
                         )}
                       </div>
                     </section>
                   </div>
 
-                  <section className="dashboard-sampledata">
-                    <div className="dashboard-sampleheader">
-                      <h3 className="dashboard-metatitle">Sample Data</h3>
-                      <span className="dashboard-rowcount">Showing up to 100 rows</span>
+                  <section className="dashboard-sample-data">
+                    <div className="dashboard-sample-header">
+                      <h3 className="dashboard-meta-title">Sample Data</h3>
+                      <span className="dashboard-row-count">Showing up to 100 rows</span>
                     </div>
 
                     {relationDetails.columns.length > 0 ? (
                       relationDetails.rows.length > 0 ? (
-                        <div className="dashboard-tablecontainer">
+                        <div className="dashboard-table-container">
                           <table>
                             <thead>
                               <tr>
                                 {relationDetails.columns.map((column) => (
                                   <th key={column.name}>
-                                    <div className="dashboard-columnheader">
+                                    <div className="dashboard-column-header">
                                       <span>{column.name}</span>
-                                      <span className="dashboard-columntype">{column.type}</span>
+                                      <span className="dashboard-column-type">{column.type}</span>
                                     </div>
                                   </th>
                                 ))}
@@ -241,17 +242,17 @@ function Dashboard({ connectionData, onDisconnect, isDarkMode = false }) {
                           </table>
                         </div>
                       ) : (
-                        <p className="dashboard-nodata">No rows to display</p>
+                        <p className="dashboard-no-data">No rows to display</p>
                       )
                     ) : (
-                      <p className="dashboard-nodata">No fields available for this relation</p>
+                      <p className="dashboard-no-data">No fields available for this relation</p>
                     )}
                   </section>
                 </>
               )}
             </div>
           ) : (
-            <div className="dashboard-noselection">
+            <div className="dashboard-no-selection">
               <p>Select a relation to inspect its fields, foreign keys, and rows</p>
             </div>
           )}
